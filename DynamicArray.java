@@ -6,7 +6,7 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
 
     /**
      * Constructor: Allocates the intial storage length of the Array 
-     * @param length
+     * @param length size of the new array
      */
     @SuppressWarnings("unchecked")
     public DynamicArray(int length) {
@@ -17,7 +17,7 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
 
     /**
      * Copy constructor that makes a deep copy of the array
-     * @param otherArray
+     * @param otherArray the array to make a deep copy of
      */
     @SuppressWarnings("unchecked")
     public DynamicArray(DynamicArray<T> otherArray) {
@@ -32,8 +32,8 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
 
     /**
      * Updates the value at the given index and returns the previous value
-     * @param element
-     * @param index
+     * @param element element to be inserted
+     * @param index specific index to set element to
      * @return previous element at the specified index 
      * @throws IndexOutOfBoundsException
      */
@@ -50,7 +50,7 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
 
     /**
      * Returns the element stored at an index
-     * @param index 
+     * @param index specific index to get element from
      * @throws IndexOutOfBoundsException
      */
     public T get(int index) {
@@ -74,8 +74,8 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
 
     /**
      * Inserts element at specified index and moves all elements to the right
-     * @param element
-     * @param index
+     * @param element element to be inserted
+     * @param index specific index where the element is inserted into 
      * @throws IndexOutOfBoundsException
      */
     public void add(T element, int index) {
@@ -84,28 +84,29 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
         }
         
         for (int i = length; i > index; i--) {  
+            arr[index] = element;
         }
         
-        arr[index] = element;
         length++;  
     }
 
     /**
      * Removes an element at specified index and moves all elements to the left
-     * @param index
+     * @param index specific index where the element is removed from
      * @throws IndexOutOfBoundsException
      */
-    public void remove(int index){
-        if (index < length) {
-            arr[index] = null; 
-            for (int i = index + 1; i < length; i--) {
-                arr[i - 1] = arr[i];
-            }
+    public void remove(int index) {
+        if (index < 0 || index >= length) {  
+            throw new IndexOutOfBoundsException("Index out of bounds. Try again.");
         }
-        else {
-            throw new RuntimeException("Index out of bounds. Try again.");
+        
+        
+        for (int i = index + 1; i < length; i++) {  
+            arr[i - 1] = arr[i];
         }
-        length--;
+        
+        length--;  
+        arr[length] = null;  
     }
 
     // Whole-Array Operations 
@@ -128,7 +129,8 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
 
     /**
      * Inserts all the elements of the parameter array at the specified index
-     * @param newArray
+     * @param newArray array to be put at the specified index
+     * @param index specific index to put the array at
      * @return new DynamicArray
      */
     public DynamicArray<T> insert(DynamicArray<T> newArray, int index){
@@ -141,8 +143,8 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
 
     /**
      * Returns a subarray of the current DynamicArray from the range specified by the parameters
-     * @param fromIndex
-     * @param toIndex
+     * @param fromIndex start index
+     * @param toIndex end index
      * @return copy of the current DynamicArray in the range specified by the parameters 
      */
     public DynamicArray<T> sublist(int fromIndex, int toIndex){
@@ -155,8 +157,8 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
 
     /**
      * Removes the elements of the array according to the range specified in the parameters
-     * @param fromIndex
-     * @param toIndex
+     * @param fromIndex  start index
+     * @param toIndex end index
      * @return new DynamicArray, minus the elements specified by the parameters
      */
     public DynamicArray<T> delete(int fromIndex, int toIndex){
@@ -169,8 +171,8 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
 
     /**
      * Returns a new DynamicArray containing the elements from the range specified by the parameters
-     * @param fromIndex
-     * @param toIndex
+     * @param fromIndex start index
+     * @param toIndex end index
      * @return new DynamicArray containing the elements from the range specified in the parameters 
      */
     public DynamicArray<T> extract(int fromIndex, int toIndex){

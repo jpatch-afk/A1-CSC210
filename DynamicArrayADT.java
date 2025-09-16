@@ -4,8 +4,8 @@ public interface DynamicArrayADT<T> {
 
     /**
      * Updates the value at the given index and returns the previous value
-     * @param element 
-     * @param index 
+     * @param element element to be inserted
+     * @param index  specific index to set element to
      * @return previous value 
      * @throws IndexOutOfBoundsException 
      */
@@ -13,7 +13,7 @@ public interface DynamicArrayADT<T> {
     
     /**
      * Returns the element stored at an index
-     * @param index 
+     * @param index specific index to get element from
      * @return element of type T at given index 
      * @throws IndexOutOfBoundsException
      */
@@ -28,16 +28,16 @@ public interface DynamicArrayADT<T> {
     //Adding and Removing Elements
 
     /**
-     * 
-     * @param element
-     * @param index
+     * Inserts element at specified index and moves all elements to the right
+     * @param element element to be inserted
+     * @param index specific index where the element is inserted into 
      * @throws IndexOutOfBoundsException
      */
     public void add(T element, int index);
 
     /**
-     * 
-     * @param index
+     * Removes an element at specified index and moves all elements to the left
+     * @param index specific index where the element is removed from
      * @throws IndexOutOfBoundsException
      */
     public void remove(int index);
@@ -45,39 +45,40 @@ public interface DynamicArrayADT<T> {
     // Whole-Array Operations 
 
     /**
-     * 
-     * @param newArray
+     * Appends a new array at the end of the array
+     * @param newArray array to be inserted at the end
      * @return new Dynamic Array 
      */
     public DynamicArrayADT<T> append(DynamicArray<T> newArray);
 
     /**
-     * 
-     * @param newArray
-     * @return new DynamicArray
+     * Inserts all the elements of the parameter array at the specified index
+     * @param newArray array to be put at the specified index
+     * @param index specific index to put the array at
+     * @return new DynamicArray 
      */
     public DynamicArrayADT<T> insert(DynamicArray<T> newArray, int index);
 
     /**
-     * 
-     * @param fromIndex
-     * @param toIndex
+     * Returns a subarray of the current DynamicArray from the range specified by the parameters
+     * @param fromIndex start index
+     * @param toIndex end index
      * @return copy of the current DynamicArray in the range specified by the parameters 
      */
     public DynamicArrayADT<T> sublist(int fromIndex, int toIndex);
 
     /**
-     * 
-     * @param fromIndex
-     * @param toIndex
+     * Removes the elements of the array according to the range specified in the parameters
+     * @param fromIndex start index
+     * @param toIndex end index
      * @return new DynamicArray, minus the elements specified by the parameters
      */
     public DynamicArrayADT<T> delete(int fromIndex, int toIndex);
 
     /**
-     * 
-     * @param fromIndex
-     * @param toIndex
+     * Returns a new DynamicArray containing the elements from the range specified by the parameters
+     * @param fromIndex start index
+     * @param toIndex end index
      * @return new DynamicArray containing the elements from the range specified in the parameters 
      */
     public DynamicArrayADT<T> extract(int fromIndex, int toIndex);
