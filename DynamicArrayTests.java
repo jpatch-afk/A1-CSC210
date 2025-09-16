@@ -28,7 +28,7 @@ public class DynamicArrayTests {
     public DynamicArray<Character> stringToArray(String s) {
         DynamicArray<Character> result = new DynamicArray<Character>(s.length());
         for (int i = 0; i < s.length(); i++) {
-            result.add(i, s.charAt(i));
+            result.add(s.charAt(i), i);
         }
         return result;
     }
@@ -95,39 +95,51 @@ public class DynamicArrayTests {
         compareToString(empty.append(empty), "");
     }
 
-    // ~*~*~*~*~ Add Extract Tests Below ~*~*~*~*~
+       // ~*~*~*~*~ Extract Tests Below ~*~*~*~*~
 
-//    /**
-//     * Tests that ...
-//     */
-//    @Test
-//    public void testExtractStandard() {
-//        // fill in standard cases
-//    }
-//
-//    /**
-//     * Tests that ..
-//     */
-//    @Test
-//    public void testExtractEntire() {
-//        // fill in extracting the entire array
-//    }
-//
-//    /**
-//     * Tests that ..
-//     */
-//    @Test
-//    public void testExtractZero() {
-//        // fill in extracting zero elements
-//    }
-//
-//    /**
-//     * Tests that ..
-//     */
-//    @Test
-//    public void testExtractEmpty() {
-//        // fill in extracting from an empty array
-//    }
+
+    /**
+     * Tests that test the standards of the extract method
+     */
+    @Test
+    public void testExtractStandard() {
+        DynamicArray<Character> extracted = a1.extract(0, 5);
+        assertEquals(5, extracted.size());
+    }
+
+    /**
+     * Tests that you can extract the entire array by using the full length of the array 
+     */
+    @Test
+    public void testExtractEntire() {
+    DynamicArray<Character> extracted = a1.extract(0, a1.size());
+
+    assertEquals(a1.size(), extracted.size());
+  
+    for (int i = 0; i < a1.size(); i++) {
+        assertEquals(a1.get(i), extracted.get(i));
+    }
+    }
+
+    /**
+    * Tests that you can fill in zero elements 
+    */
+    @Test
+    public void testExtractZero() {
+        DynamicArray<Character> extracted = a1.extract(2, 2);
+        
+        assertEquals(0, extracted.size());
+    }
+
+    /**
+     * Tests that you can extract from an empty array
+     */
+   @Test
+    public void testExtractEmpty() {
+        DynamicArray<Character> extracted = empty.extract(0, 0);
+
+        assertEquals(0, extracted.size());
+    }
 
     /**
      * Tests that extract throws the proper exception
@@ -135,21 +147,131 @@ public class DynamicArrayTests {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testExtractBounds() {
-        DynamicArray<Character> extract = a1.extract(-1, 5);
-        // More bounds that you can check:
-        // low index is negative => throws ArrayIndexOutOfBoundsException
-        // high index is greater than array length => throws ArrayIndexOutOfBoundsException
-        // low index is greater than array length => throws ArrayIndexOutOfBoundsException
-        // high index is negative => throws ArrayIndexOutOfBoundsException
-        // high index is less than low
+        DynamicArray<Character> extractLNeg = a1.extract(-1, 5);
+        assertEquals(0, extractLNeg.size());
+
+        DynamicArray<Character> extractHigh = a1.extract(-1, s.size() + 1);
+        assertEquals(0, extractHigh.size());
+
+        DynamicArray<Character> extractLow = a1.extract(s.size() + 1, s.size() + 2);
+        assertEquals(0, extractLow.size());
+
+        DynamicArray<Character> extractHNeg = a1.extract(1, -5);
+        assertEquals(0, extractHNeg.size());
+
+        DynamicArray<Character> extractHigher = a1.extract(5, 1);
+        assertEquals(0, extractHigher.size());
     }
 
-    // ~*~*~*~*~ Write More Tests Below ~*~*~*~*~
+    // ~*~*~*~*~ Get Tests Below ~*~*~*~*~
 
-    // write tests for the other methods here
+    /**
+     * Tests that test the standards of the get method
+     */
+    @Test
+    public void testGetStandard() {
+        assertEquals((Character) 'f', a1.get(5));
+    }
+
+    /**
+     * Tests that you can use get for all the methods in the array
+     */
+    @Test
+    public void testGetAll() {
+       DynamicArray<Character> getAll = new DynamicArray<Character>(5);
+
+       for (int i = 0; i < getAll.size(); i++) {
+            getAll.get(a1.get(i));
+       }
+       assertEquals(a1.size(), getAll.size());
+        
+    }
+
+    /**
+     * Test getting the same index multiple times returns the same value
+     */
+    @Test
+    public void testGetConsistency() {
+        Character first = a1.get(3);
+        Character second = a1.get(3);
+        Character third = a1.get(3);
+        
+        assertEquals(first, second);
+        assertEquals(second, third);
+    }
+
+    /**
+     * Test that get throws all the appropriate exceptions 
+     */
+    @Test(expected = RuntimeException.class)
+    public void testGetBounds() {
+        a1.get(-1);
+
+        a1.get(a1.size());
+
+        a1.get(a1.size() + 1);
+    }
+
+
+    // ~*~*~*~*~ Add Tests Below ~*~*~*~*~
+
+    /**
+     * Tests that test the standards of the add method
+     */
+    @Test
+    public void testAddStandard() {
+        empty.add('a', 0);
+        assertEquals(1, empty.size());
+        assertEquals((Character) 'a', empty.get(0));
+
+        s.add('x', 0);
+        
+        assertEquals(2, s.size());
+        compareToString(s, "xs");
+        
+    }
+
+    /**
+     * Tests that test that you can multiple elements at a time
+     */
+    @Test
+    public void testAddMultiple() {
+        s.add('1', 0);  
+        s.add('2', 0);  
+        s.add('3', 2);  
+        
+        assertEquals(4, s.size());
+        compareToString(s, "213s");
+    }
+
+    /**
+     * Test that original elements are in the correct spot after the add method is called
+     */
+    @Test
+    public void testOriginalElementsIntact() {
+
+        a1.add('g', 3);
+        
+        assertEquals((Character) 'a', a1.get(0));
+        assertEquals((Character) 'b', a1.get(1));
+        assertEquals((Character) 'c', a1.get(2));
+        assertEquals((Character) 'g', a1.get(3));
+        assertEquals((Character) 'd', a1.get(4));
+        assertEquals((Character) 'e', a1.get(5));
+        assertEquals((Character) 'f', a1.get(6));
+    }
+
+
+     /**
+     * Test that add throws all the appropriate exceptions 
+     */
+    @Test(expected = RuntimeException.class)
+    public void testAddBounds() {
+        
+        a1.add('x', -1);
+
+        a1.add('x', a1.size() + 1);
+
+        empty.add('X', 1);
+    }
 }
-
-
-
-
-

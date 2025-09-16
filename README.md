@@ -1,6 +1,5 @@
 # A1 DynamicArray
 
-## Your readme should include the following information. Each student needs to submit all of this information.
 
 Other students you worked with, including TAs:
 
