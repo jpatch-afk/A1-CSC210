@@ -7,7 +7,7 @@ public interface DynamicArrayADT<T> {
      * @param element element to be inserted
      * @param index  specific index to set element to
      * @return previous value 
-     * @throws IndexOutOfBoundsException 
+     * @throws IndexOutOfBoundsException for invalid indexes 
      */
     public T set(T element, int index);
     
@@ -15,7 +15,7 @@ public interface DynamicArrayADT<T> {
      * Returns the element stored at an index
      * @param index specific index to get element from
      * @return element of type T at given index 
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException for invalid indexes 
      */
     public T get(int index);
 
@@ -31,14 +31,14 @@ public interface DynamicArrayADT<T> {
      * Inserts element at specified index and moves all elements to the right
      * @param element element to be inserted
      * @param index specific index where the element is inserted into 
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException for invalid indexes 
      */
     public void add(T element, int index);
 
     /**
      * Removes an element at specified index and moves all elements to the left
      * @param index specific index where the element is removed from
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException for invalid indexes 
      */
     public void remove(int index);
 

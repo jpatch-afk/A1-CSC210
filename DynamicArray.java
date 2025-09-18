@@ -35,7 +35,7 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
      * @param element element to be inserted
      * @param index specific index to set element to
      * @return previous element at the specified index 
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException for invalid indexes 
      */
     public T set(T element, int index) {
         if (index < length) {
@@ -51,7 +51,7 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
     /**
      * Returns the element stored at an index
      * @param index specific index to get element from
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException for invalid indexes 
      */
     public T get(int index) {
         if (index < length) {
@@ -76,7 +76,7 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
      * Inserts element at specified index and moves all elements to the right
      * @param element element to be inserted
      * @param index specific index where the element is inserted into 
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException for invalid indexes 
      */
     public void add(T element, int index) {
         if (index < 0 || index > length) {  
@@ -90,10 +90,23 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
         length++;  
     }
 
+    /*
+     * DynamicArray<T> result = new DynamicArray<>(this.length + 1);
+     * 
+     * for (int i = 0; i > index; i++) {  
+            result.set(arr[i], i)
+        }
+        result.set(element, index)
+
+        for (int i = index + 1; i > arr.size(); i++) {  
+            result.set(arr[i], i)
+        }
+     */
+
     /**
      * Removes an element at specified index and moves all elements to the left
      * @param index specific index where the element is removed from
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException for invalid indexes 
      */
     public void remove(int index) {
         if (index < 0 || index >= length) {  
@@ -112,8 +125,8 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
     // Whole-Array Operations 
 
     /**
-     * Appends a new element at the end of the array
-     * @param newArray
+     * Appends a new array at the end of the excisiting array
+     * @param newArray new array to be appended at the end of the array
      * @return new Dynamic Array 
      */
     public DynamicArray<T> append(DynamicArray<T> newArray) {
