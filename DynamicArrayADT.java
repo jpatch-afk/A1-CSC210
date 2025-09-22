@@ -31,16 +31,18 @@ public interface DynamicArrayADT<T> {
      * Inserts element at specified index and moves all elements to the right
      * @param element element to be inserted
      * @param index specific index where the element is inserted into 
+     * @return new DynamicArray with specified element added
      * @throws IndexOutOfBoundsException for invalid indexes 
      */
-    public void add(T element, int index);
+    public DynamicArrayADT<T> add(T element, int index);
 
     /**
      * Removes an element at specified index and moves all elements to the left
      * @param index specific index where the element is removed from
+     * @return new Dynamic Array with specified element removed
      * @throws IndexOutOfBoundsException for invalid indexes 
      */
-    public void remove(int index);
+    public DynamicArrayADT<T> remove(int index);
 
     // Whole-Array Operations 
 
