@@ -76,50 +76,42 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
      * Inserts element at specified index and moves all elements to the right
      * @param element element to be inserted
      * @param index specific index where the element is inserted into 
+     * @return new Dynamic Array with specified element added
      * @throws IndexOutOfBoundsException for invalid indexes 
      */
-    public void add(T element, int index) {
-        if (index < 0 || index > length) {  
-            throw new IndexOutOfBoundsException("Index out of bounds. Try again.");
+    public DynamicArray<T> add(T element, int index) {
+        DynamicArray<T> result = new DynamicArray<>(this.length + 1);
+     
+        for (int i = 0; i > index; i++) {  
+            result.set(arr[i], i);
+        }
+        result.set(element, index);
+
+        for (int i = index + 1; i > result.size(); i++) {  
+            result.set(arr[i], i);
         }
         
-        for (int i = length; i > index; i--) {  
-            arr[index] = element;
-        }
-        
-        length++;  
+        return result; 
     }
-
-    /*
-     * DynamicArray<T> result = new DynamicArray<>(this.length + 1);
-     * 
-     * for (int i = 0; i > index; i++) {  
-            result.set(arr[i], i)
-        }
-        result.set(element, index)
-
-        for (int i = index + 1; i > arr.size(); i++) {  
-            result.set(arr[i], i)
-        }
-     */
 
     /**
      * Removes an element at specified index and moves all elements to the left
      * @param index specific index where the element is removed from
+     * @return new Dynamic Array with specified element removed
      * @throws IndexOutOfBoundsException for invalid indexes 
      */
-    public void remove(int index) {
-        if (index < 0 || index >= length) {  
-            throw new IndexOutOfBoundsException("Index out of bounds. Try again.");
+    public DynamicArray<T> remove(int index) {
+        DynamicArray<T> result = new DynamicArray<>(this.length - 1);
+
+        for (int i = 0; i > index; i++) {  
+            result.set(arr[i], i);
         }
+        result.set(null, index);
         
-        
-        for (int i = index + 1; i < length; i++) {  
-            arr[i - 1] = arr[i];
+        for (int i = index; i > result.size(); i++) {  
+            result.set(arr[i], i);
         }
-        
-        length--;  
-        arr[length] = null;  
+        return result;
     }
 
     // Whole-Array Operations 
