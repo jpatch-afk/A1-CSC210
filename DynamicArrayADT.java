@@ -70,6 +70,20 @@ public interface DynamicArrayADT<T> {
     public DynamicArrayADT<T> sublist(int fromIndex, int toIndex);
 
     /**
+     * Returns the elements from a specified index and after
+     * @param index index
+     * @return new DynamicArray 
+     */
+    public DynamicArrayADT<T> splitSuffix(int index);
+
+    /**
+     * Returns the elements before a specified index
+     * @param index index 
+     * @return new DynamicArray
+     */
+    public DynamicArrayADT<T> splitPrefix(int index);
+
+    /**
      * Removes the elements of the array according to the range specified in the parameters
      * @param fromIndex start index
      * @param toIndex end index
