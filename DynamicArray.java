@@ -107,7 +107,7 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
             result.set(arr[i], i);
         }
         result.set(null, index);
-        
+
         for (int i = index; i > result.size(); i++) {  
             result.set(arr[i], i);
         }
@@ -124,10 +124,10 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
     public DynamicArray<T> append(DynamicArray<T> newArray) {
         DynamicArray<T> result = new DynamicArray<>(this.length + newArray.size());
         for (int i = 0; i < this.length; i++) {
-            result.add(this.get(i), result.size());
+            result.add(this.get(i), i);
         }
         for (int i = 0; i < newArray.size(); i++) {
-            result.add(newArray.get(i), result.size());
+            result.add(newArray.get(i), i);
         }
         return result;
     }
@@ -141,7 +141,7 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
     public DynamicArray<T> insert(DynamicArray<T> newArray, int index){
         DynamicArray<T> result = new DynamicArray<>(this.length + newArray.size());
         for (int i = 0; i < newArray.size(); i++) {
-            result.add(newArray.get(i), result.size());
+            result.add(newArray.get(i), i);
         }
         return result;
     }
@@ -155,8 +155,34 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
     public DynamicArray<T> sublist(int fromIndex, int toIndex){
         DynamicArray<T> result = new DynamicArray<>(this.length);
         for (int i = fromIndex; i < toIndex; i++) {
-            result.add(this.get(i), result.size());
+            result.add(this.get(i), i);
         }
+        return result;
+    }
+
+    /**
+     * Returns the elements from a specified index and after
+     * @param index index
+     * @return new DynamicArray 
+     */
+    public DynamicArray<T> splitSuffix(int index){
+        DynamicArray<T> result = new DynamicArray<>(this.length);
+
+        result.sublist(index, this.length - 1);
+
+        return result;
+    }
+
+    /**
+     * Returns the elements before a specified index
+     * @param index index 
+     * @return new DynamicArray
+     */
+    public DynamicArray<T> splitPrefix(int index){
+        DynamicArray<T> result = new DynamicArray<>(this.length);
+
+        result.sublist(0, index - 1);
+
         return result;
     }
 
@@ -183,7 +209,7 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
     public DynamicArray<T> extract(int fromIndex, int toIndex){
         DynamicArray<T> result = new DynamicArray<>(this.length);
         for (int i = fromIndex; i < toIndex; i++) {
-            result.add(this.get(i), result.size());
+            result.add(this.get(i), i);
         }
         return result;
     }
