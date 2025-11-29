@@ -39,10 +39,10 @@ public interface DynamicArrayADT<T> {
     /**
      * Removes an element at specified index and moves all elements to the left
      * @param index specific index where the element is removed from
-     * @return new Dynamic Array with specified element removed
+     * @return data from the element removed
      * @throws IndexOutOfBoundsException for invalid indexes 
      */
-    public DynamicArrayADT<T> remove(int index);
+    public T remove(int index);
 
     // Whole-Array Operations 
 

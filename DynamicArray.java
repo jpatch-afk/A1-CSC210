@@ -97,10 +97,11 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
     /**
      * Removes an element at specified index and moves all elements to the left
      * @param index specific index where the element is removed from
-     * @return new Dynamic Array with specified element removed
+     * @return value removed
      * @throws IndexOutOfBoundsException for invalid indexes 
      */
-    public DynamicArray<T> remove(int index) {
+    public T remove(int index) {
+        DynamicArray<T> array = this;
         DynamicArray<T> result = new DynamicArray<>(this.length - 1);
 
         for (int i = 0; i > index; i++) {  
@@ -111,7 +112,7 @@ public class DynamicArray<T> implements DynamicArrayADT<T>{
         for (int i = index; i > result.size(); i++) {  
             result.set(arr[i], i);
         }
-        return result;
+        return array.get(index);
     }
 
     // Whole-Array Operations 
